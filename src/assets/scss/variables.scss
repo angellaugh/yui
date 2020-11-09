@@ -1,0 +1,208 @@
+
+// 字体大小
+$font-size-mini: 12px;
+$font-size-small: 13px;
+$font-size-base: 14px;
+$font-size-medium: 16px;
+$font-size-large: 18px;
+$font-size-big: 20px;
+
+
+// 主题颜色
+$color-main: #4974F5;
+
+
+// 文字内容颜色
+$font-color-senior: #222222; // 一级
+$font-color-Junior: #555555; // 二级
+$font-color-minor: #666666; // 三级
+
+$font-color-base: $font-color-senior;
+
+$font-color-select: $color-main;
+$font-color-label: #606266;
+
+// 边框颜色
+$border-color-base: #e5e5e5; // 边框、线条
+$border-color-sub:#f2f2f2; //边框、线条、表头
+
+$border: #e0e0e0 1px solid;
+
+$border-box: 1px solid #ebebeb;
+$border-dashed-base:1px dashed #848484;
+$border-dashed-minor:1px dashed #d5d5d5;
+
+// 老vue-design 样式
+$border-color:#409eff;
+$border-select-hover:1px solid $border-color;
+$border-select:1px solid $border-color;
+$border-dashed-label:1px dashed #409eff;
+$background-color-select: #ecf5ff;
+
+$error-color : red;
+$border-error :1px solid $error-color;
+// 背景颜色
+$background-color:#eeeeee;
+$background-color-label: #dedeea;
+$background-color-gery:#fafafa;
+
+// 辅助颜色
+$color-success: #67C23A;
+$color-warning:#E6A23C;
+$color-danger:#F56C6C;
+$color-info: #909399;
+
+// 圆角
+$border-radius: 5px;
+
+$table-border-radius:2px;
+
+// padding
+$padding-main: 24px;
+
+// 阴影
+$box-shadow-main: 0px 4px 6px 0px rgba(0, 0, 0, 0.1);
+
+
+
+
+// mixins start
+
+// 单行文字隐藏
+@mixin line-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 多行文字隐藏
+@mixin multi-overflow($line-sum: 2) {
+  -webkit-line-clamp: $line-sum; // 用来限制在一个块元素显示的文本的行数
+  display: -webkit-box; // 将对象作为弹性伸缩盒模型显示
+  -webkit-box-orient: vertical; //设置或检查伸缩盒对象的子元素的排列方式
+  text-overflow: ellipsis; // 在多行文本的情况下，用...隐藏超出范围的文本
+  word-break: break-all;
+  overflow: hidden;
+  white-space: normal;
+}
+
+@mixin diy-scrollbar {
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 10px;
+    background-color: rgba(35, 46, 64, 0.1);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#1a232e40, endColorstr=#1a232e40);
+  }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-track:hover {
+    background-color: transparent;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0d232e40, endColorstr=#0d232e40);
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+  }
+}
+
+// 隐藏滚动条
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// flex 居中
+@mixin flex-c-c($direction: column) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+
+@mixin flex-s-b($directions:column,$wrap:nowrap) {
+  display: flex;
+  flex-direction: $directions;
+  justify-content: space-between;
+  flex-wrap: $wrap;
+}
+@mixin  flex-col($dir:column){
+  display: flex;
+  flex-direction: $dir;
+}
+@mixin move-style($color:#409eff){ // 移动时的样式
+  visibility: hidden !important;
+  position: relative;
+  height: 5px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  &:before {
+    position: absolute;
+    visibility: initial;
+    top: 0px;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    content: " ";
+    background: $color;
+  }
+}
+
+// 绝对居中
+@mixin abs-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+// 将错误提示放到 输入框上面
+@mixin tooltip-popover {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, calc(-100% - 10px));
+  z-index: 2;
+  min-width: 250px;
+  min-height: 32px;
+  line-height: 1.5;
+  font-size: $font-size-small;
+  padding: 6px 8px;
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  word-wrap: break-word;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-top: 5px solid rgba(0, 0, 0, 0.75);
+  }
+}
+
+// mixins end

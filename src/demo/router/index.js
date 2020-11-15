@@ -44,12 +44,12 @@ const routes = [
     path: "/table-design",
     name: "TableDesign",
     meta: {
-      title: "表格"
+      title: "后台页面"
     },
     component: () =>
       import(
-        /* webpackChunkName: "table-design" */
-        "../views/TableDesign.vue"
+        /* webpackChunkName: "page-design" */
+        "../views/PageDesign.vue"
       )
   }
 ];

@@ -15,13 +15,13 @@
         :class="{ action: isActive('/form-design') }"
         class="nav-item"
         to="/form-design"
-        >表单</router-link
+        >表单可视化</router-link
       >
       <router-link
         :class="{ action: isActive('/table-design') }"
         class="nav-item"
         to="/table-design"
-        >表格</router-link
+        >页面可视化</router-link
       >
     </div>
     <keep-alive>
@@ -37,6 +37,9 @@ export default {
     isActive(path) {
       return path === this.$route.fullPath;
     }
+  },
+  mounted() {
+    console.log(this.$router);
   }
 };
 </script>

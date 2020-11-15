@@ -3,6 +3,9 @@
     <assembly></assembly>
     <preview ref="preview"></preview>
     <modify ref="modify"></modify>
+    <!-- <el-dialog title="函数编辑" :visible.sync="x">
+      <monaco />
+    </el-dialog> -->
   </div>
 </template>
 <script>
@@ -10,25 +13,30 @@
 import assembly from "./components/assembly";
 import preview from "./components/preview";
 import modify from "./components/modify";
+
+import monaco from "./components/monaco";
 // vuex
 import store from "./store";
 import { createNamespacedHelpers } from "vuex";
-const {
-  mapState,
-  mapMutations,
-  mapGetters,
-  mapActions
-} = createNamespacedHelpers("YUI_FormDesign");
+
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
+  "YUI_FormDesign"
+);
 
 export default {
   name: "FormDesign",
   components: {
     assembly,
     preview,
-    modify
+    modify,
+    monaco
   },
   data() {
-    return {};
+    return {
+      options: {},
+
+      x: true
+    };
   },
   computed: {
     ...mapState(["formList", "formConfig", "curSelectItem"]),
@@ -36,6 +44,9 @@ export default {
     ...mapActions(["handleDeleteItem", "clearData"])
   },
   methods: {
+    onChange(value) {
+      console.log(value);
+    },
     save() {
       if (
         this.errFormListByNull.length > 0 ||
@@ -47,22 +58,6 @@ export default {
           config: this.formConfig,
           list: this.formList
         });
-      }
-    },
-
-    updateFormJsonItem(data) {
-      const { key, value } = data;
-      this.formJson[key] = value;
-    },
-    changeCurSelectItemChild(data) {
-      const { key, value } = data;
-      if (key === "value") {
-        this.curSelectItem.value = value;
-      } else {
-        this.curSelectItem["options"] = {
-          ...this.curSelectItem["options"],
-          [key]: value
-        };
       }
     }
   },
@@ -80,8 +75,8 @@ export default {
       }
     };
   },
-  destroyed() {
-    this.clearData();
+  beforeDestroy() {
+    this.clearData && this.clearData();
     document.onkeydown = null;
   },
   beforeCreate() {

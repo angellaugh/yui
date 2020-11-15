@@ -9,16 +9,20 @@
     :disabled="disabled"
     ref="ruleForm"
   >
-    <template v-for="item in json.list">
-      <et
-        v-if="componentNameList.indexOf(item.type) > -1"
-        :key="item.uuid"
-        :is="`HirasawaYui_${item.type}`"
-        :config="item"
-        :formData="formData"
-        v-model="formData[item.fieldName]"
-      ></et>
-      <div v-else :key="item.uuid" class="form-item error">该组件无效</div>
+    <template v-for="config in json.list">
+      <template v-if="componentNameList.includes(config.type)">
+        <et
+          v-if="config.judge ? config.judge(formData) : true"
+          :key="config.uuid"
+          :is="`HirasawaYui_${config.type}`"
+          :config="config"
+          :formData="formData"
+          v-model="formData[config.fieldName]"
+        >
+        </et>
+      </template>
+
+      <div v-else :key="config.uuid" class="form-item error">该组件无效</div>
     </template>
   </el-form>
 </template>
@@ -31,6 +35,11 @@ export default {
     return {
       componentNameList,
       formData: {}
+    };
+  },
+  provide() {
+    return {
+      getSlot: this.getSlot
     };
   },
   props: {
@@ -47,6 +56,9 @@ export default {
   },
 
   methods: {
+    getSlot() {
+      return this.$scopedSlots;
+    },
     getNameList(json) {
       let temp = {};
       json.forEach(element => {

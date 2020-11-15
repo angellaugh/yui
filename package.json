@@ -1,23 +1,27 @@
 {
-  "name": "YUI",
+  "name": "yui-lib",
   "author": {
     "name": "ekxs",
     "email": "ekxs@outlook.com",
     "url": "http://hjkl.ink/"
   },
   "description": "以更骚的姿势开发VUE",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.3",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name YUI --dest lib src/lib.js"
+    "lib": "vue-cli-service build --target lib --name yui-lib --dest lib src/lib.js"
   },
+  "main": "lib/yui-lib.common.js",
   "files": [
     "lib"
   ],
   "dependencies": {
+    "@vue/composition-api": "^1.0.0-beta.19",
+    "monaco-editor": "^0.21.2",
+    "monaco-editor-webpack-plugin": "^2.0.0",
     "vue": "^2.6.11",
     "vue-json-viewer": "^2.2.15",
     "vue-router": "^3.2.0",
@@ -25,13 +29,13 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "core-js": "^3.6.5",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.5",
     "element-ui": "^2.14.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",

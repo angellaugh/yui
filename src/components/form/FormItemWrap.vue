@@ -1,9 +1,17 @@
 <template>
   <el-form-item
     :style="options.style"
-    :label="options.label"
+    :label="
+      options.labelOptions && options.labelOptions.enable
+        ? options.label
+        : undefined
+    "
     :label-width="
-      options.labelWidth.checked ? `${options.labelWidth.width}px` : null
+      options.labelOptions && options.labelOptions.enable
+        ? options.labelOptions && options.labelOptions.diyWidth
+          ? `${options.labelOptions.width}px`
+          : null
+        : '0px'
     "
     :rules="rules"
     :prop="options.fieldName"

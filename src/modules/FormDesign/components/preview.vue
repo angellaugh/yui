@@ -1,38 +1,20 @@
 <template>
   <div class="preview__wrap">
     <div class="action-bar">
-      <el-button
-        @click="
-          () => {
-            backAction();
-          }
-        "
-        icon="el-icon-back"
-        type="info"
-        size="mini"
+      <el-button @click="backAction" icon="el-icon-back" type="info" size="mini"
         >撤销</el-button
       >
       <el-button
-        @click="
-          () => {
-            redoAction();
-          }
-        "
+        @click="redoAction"
         icon="el-icon-right"
         type="info"
         size="mini"
         >重做</el-button
       >
-      <el-button
-        type="primary"
-        @click="
-          () => {
-            $emit('save');
-          }
-        "
-        size="mini"
+      <el-button type="primary" @click="generateHtml" size="mini"
         >生成代码</el-button
       >
+
       <el-button
         type="success"
         @click="dialogPreviewJson = !dialogPreviewJson"
@@ -46,16 +28,7 @@
         size="mini"
         >预览</el-button
       >
-      <el-button
-        type="danger"
-        @click="
-          () => {
-            clearData();
-          }
-        "
-        size="mini"
-        >清空</el-button
-      >
+      <el-button type="danger" @click="clearData()" size="mini">清空</el-button>
     </div>
     <div class="preview">
       <el-form
@@ -71,8 +44,8 @@
           :list="formList"
           group="formDesign"
           ghostClass="ghost"
-          handle=".drag-move"
           :animation="200"
+          handle=".drag-move"
         >
           <transition-group class="warp-drag-item" name="fade" tag="div">
             <widget
@@ -90,12 +63,24 @@
       title="JSON预览"
       :visible.sync="dialogPreviewJson"
     >
-      <json-viewer
-        boxed
-        copyable
-        :expand-depth="3"
-        :value="{ config: formConfig, list: formList }"
-      ></json-viewer>
+      <el-tabs>
+        <el-tab-pane label="完整">
+          <json-viewer
+            boxed
+            copyable
+            :expand-depth="3"
+            :value="{ config: formConfig, list: formList }"
+          ></json-viewer
+        ></el-tab-pane>
+        <el-tab-pane label="选择项">
+          <json-viewer
+            boxed
+            copyable
+            :expand-depth="3"
+            :value="curSelectItem"
+          ></json-viewer>
+        </el-tab-pane>
+      </el-tabs>
     </el-dialog>
 
     <el-dialog append-to-body title="JSON预览" :visible.sync="dialogGetJson">
@@ -118,7 +103,11 @@
         v-if="dialogPreviewForm"
         ref="generateForm"
         :json="{ config: formConfig, list: formList }"
-      ></GenerateForm>
+      >
+        <template #slotBlock="value,changeValue">
+          <el-input :value="value" @input="changeValue"> </el-input>
+        </template>
+      </GenerateForm>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickResetForm">重置表单</el-button>
         <el-button type="primary" @click="handleClickPush"
@@ -136,12 +125,9 @@ import JsonViewer from "vue-json-viewer";
 import widget from "./widget";
 // vuex
 import { createNamespacedHelpers } from "vuex";
-const {
-  mapState,
-  mapMutations,
-  mapGetters,
-  mapActions
-} = createNamespacedHelpers("YUI_FormDesign");
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
+  "YUI_FormDesign"
+);
 export default {
   name: "preview",
   components: {
@@ -151,7 +137,7 @@ export default {
   },
   computed: {
     ...mapState(["formList", "formConfig"]),
-    ...mapGetters(["errFormListByRepeat", "errFormListByNull"])
+    ...mapGetters(["curSelectItem", "errFormListByRepeat", "errFormListByNull"])
   },
   data() {
     return {
@@ -163,6 +149,7 @@ export default {
   },
   methods: {
     ...mapActions(["clearData", "backAction", "redoAction"]),
+    generateHtml() {},
     handlePreviewForm() {
       if (
         this.errFormListByNull.length > 0 ||

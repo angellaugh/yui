@@ -39,9 +39,36 @@ function toLine(name) {
   return name.replace(/([A-Z])/g, "_$1").toLowerCase();
 }
 
+/**
+ * @name 深拷贝
+ * @param {obj} target
+ */
+function deepClone(target, map = new WeakMap()) {
+  let cloneTarget;
+  if (
+    target !== null &&
+    (typeof target === "object" || Array.isArray(target))
+  ) {
+    cloneTarget = Array.isArray(target) ? [] : {};
+    const keys = Object.keys(target);
+    if (map.has(target)) {
+      return map.get(target);
+    }
+    for (let key of keys) {
+      cloneTarget[key] = deepClone(target[key], map);
+    }
+    map.set(target, cloneTarget);
+  } else {
+    cloneTarget = target;
+  }
+
+  return cloneTarget;
+}
+
 export default {
   objectIntersection,
   isObject,
   toHump,
-  toLine
+  toLine,
+  deepClone
 };

@@ -5,6 +5,14 @@ export default {
       options: {}
     };
   },
+  inject: {
+    getSlot: {
+      from: "getSlot",
+      default: () => {
+        return () => ({});
+      }
+    }
+  },
   components: {
     FormItemWrap
   },
@@ -21,6 +29,7 @@ export default {
     }
   },
   props: {
+    value: {},
     config: {
       type: Object,
       required: true
@@ -46,7 +55,7 @@ export default {
   },
   model: {
     prop: "value",
-    event: "change"
+    event: "input"
   },
   methods: {
     changeValue(_) {
@@ -57,17 +66,17 @@ export default {
           case "number":
             if (_[_.length - 1] === ".") {
               // 笨办法排除输入小数点
-              this.$emit("change", _);
+              this.$emit("input", _);
             } else {
-              this.$emit("change", Number(_) ? parseFloat(_) : _);
+              this.$emit("input", Number(_) ? parseFloat(_) : _);
             }
             break;
           default:
-            this.$emit("change", _);
+            this.$emit("input", _);
             break;
         }
       } else {
-        this.$emit("change", _);
+        this.$emit("input", _);
       }
     }
   }

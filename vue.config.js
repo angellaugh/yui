@@ -1,3 +1,5 @@
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+
 module.exports = {
   pages: {
     index: {
@@ -15,6 +17,14 @@ module.exports = {
         prependData: `@import "./src/assets/scss/variables.scss";`
       }
     }
+  },
+  configureWebpack: {
+    plugins: [
+      new MonacoWebpackPlugin({
+        languages: ["javascript", "css", "html", "json"],
+        features: ["coreCommands", "find"]
+      })
+    ]
   },
 
   chainWebpack: config => {

@@ -15,16 +15,11 @@
 </template>
 <script>
 const type = "singleLineInput"; // 组件名称
-import mixin from "../mixin";
 export default {
   name: type,
   enable: true, // 启用否
-  mixins: [mixin],
   data() {
     return {};
-  },
-  props: {
-    value: {}
   },
   methods: {},
   defaultConfig: {
@@ -32,16 +27,16 @@ export default {
     index: 0, // 排序
     icon: "icon-danhangshurukuang",
     options: {
+      label: "单行输入框", // 对应editConfig ，如果不存在 便不可编辑
       type: type, //组件名称
       value: "", //值
-      label: "单行输入框", // 对应editConfig ，如果不存在 便不可编辑
-      labelWidth: {
-        checked: false,
+      labelOptions: {
+        enable: true,
+        diyWidth: false,
         width: 100
       },
       placeholder: "",
       max: 50,
-      style: "",
       attributes: [],
       rules: []
     }
@@ -57,8 +52,8 @@ export default {
       label: "标题",
       max: null
     },
-    labelWidth: {
-      type: "labelWidthEdit"
+    labelOptions: {
+      type: "labelOptionsEdit"
     },
     placeholder: {
       type: "singleLineInput",
@@ -87,10 +82,6 @@ export default {
     rules: {
       type: "rulseEditor",
       config: ["haveRequired", "havePreinstall"] //        haveRequired 必填, haveRegExp 正则, havePreinstall 预设
-    },
-    style: {
-      type: "multiLineInput",
-      label: "自定义样式"
     }
   }
 };

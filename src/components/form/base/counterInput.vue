@@ -1,45 +1,22 @@
-<template>
-  <FormItemWrap :options="options">
-    <el-input-number
-      :style="options.style"
-      v-bind="{
-        disabled: true
-      }"
-      :step-strictly="options.attributes.includes('step-strictly')"
-      :min="options.min"
-      :max="options.max"
-      :step="options.step"
-      :controls-position="options['controls-position']"
-      :value="value"
-      :placeholder="options.placeholder"
-      @input="changeValue"
-    ></el-input-number>
-  </FormItemWrap>
-</template>
-
 <script>
-import mixin from "../mixin";
 const type = "counterInput";
 export default {
   name: type,
   enable: true,
-  mixins: [mixin],
   data() {
     return {};
   },
-  props: {
-    value: {},
-  },
+
   defaultConfig: {
     index: 2,
     icon: "icon-shuzishurukuang",
-    label: "计数器",
     options: {
       type,
       value: 100,
       label: "计数器",
-      labelWidth: {
-        checked: false,
+      labelOptions: {
+        enable: true,
+        diyWidth: false,
         width: 100
       },
       "controls-position": undefined,
@@ -47,7 +24,6 @@ export default {
       max: 200,
       min: 0,
       step: 1,
-      style: "",
       attributes: ["controls"],
       rules: []
     }
@@ -83,8 +59,8 @@ export default {
       type: "singleLineInput",
       label: "占位文本"
     },
-    labelWidth: {
-      type: "labelWidthEdit"
+    labelOptions: {
+      type: "labelOptionsEdit"
     },
     attributes: {
       type: "checkboxGroup",
@@ -107,8 +83,23 @@ export default {
       type: "multiLineInput",
       label: "自定义样式"
     }
+  },
+  render(h) {
+    const { options, value, changeValue } = this;
+    return (
+      <FormItemWrap options={options}>
+        <el-input-number
+          step-strictly={options.attributes.includes("step-strictly")}
+          min={options.min}
+          max={options.max}
+          step={options.step}
+          controls-position={options["controls-position"]}
+          value={value}
+          placeholder={options.placeholder}
+          on-Change={changeValue}
+        ></el-input-number>
+      </FormItemWrap>
+    );
   }
 };
 </script>
-
-<style scoped></style>

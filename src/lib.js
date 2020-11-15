@@ -1,12 +1,14 @@
 import { requireComponentFuc } from "./components/form";
 import GenerateForm from "./modules/FormDesign/GenerateForm";
-import GenerateTable from "./modules/TableDesign/GenerateTable";
+import GenerateFormItem from "./modules/FormDesign/GenerateFormItem";
+import GeneratePage from "./modules/TableDesign/GeneratePage";
 const install = function(Vue) {
   requireComponentFuc(Vue);
   // 注册Form
   Vue.component(GenerateForm.name, GenerateForm);
+  Vue.component(GenerateFormItem.name, GenerateFormItem);
   // 注册Table
-  Vue.component(GenerateTable.name, GenerateForm);
+  Vue.component(GeneratePage.name, GeneratePage);
 };
 
 // 判断是否是直接引入文件

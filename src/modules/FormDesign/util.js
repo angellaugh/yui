@@ -5,13 +5,13 @@
 import storage from "@/utils/storage";
 
 function uploadHistory(list) {
-  let point = storage.ss.get("historyPoint") + 1;
+  let point = storage.ss.get("historyPointer") + 1;
   const max = storage.ss.get("historyMax");
   if (!point) {
     point = 1;
   }
   storage.ss.set(`history_${point}`, list);
-  storage.ss.set("historyPoint", point);
+  storage.ss.set("historyPointer", point);
   storage.ss.set("historyMax", point);
   setTimeout(() => {
     let len = point + 1;

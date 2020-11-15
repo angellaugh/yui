@@ -16,6 +16,7 @@
     "
   >
     <co
+      v-if="config.judge ? config.judge() : true"
       :is="`HirasawaYui_${config.type}`"
       :isPreview="true"
       :config="config"
@@ -135,7 +136,7 @@ export default {
     left: 0;
     height: 100%;
     width: 100%;
-    border: $border-select;
+    // border: $border-select;
 
     box-sizing: border-box;
     .drag-move {
@@ -144,8 +145,8 @@ export default {
       width: 26px;
       z-index: 5;
       position: absolute;
-      top: -2px;
-      left: -2px;
+      top: 0;
+      left: 0;
       background: $font-color-select;
       > img {
         width: 20px;
@@ -159,8 +160,8 @@ export default {
       cursor: pointer;
       z-index: 5;
       position: absolute;
-      bottom: -2px;
-      right: -2px;
+      bottom: 0;
+      right: 0;
       background: $font-color-select;
       > img {
         width: 18px;

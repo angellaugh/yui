@@ -21,19 +21,22 @@
             `HirasawaYui_${curSelectItem.type}`
           ]"
         >
-          <et
-            v-if="componentNameList.indexOf(item.type) > -1"
-            class="modify-item"
-            :key="key"
-            :is="`HirasawaYui_${item.type}`"
-            :config="item"
-            :value="curSelectItem[key]"
-            @change="
-              value => {
-                ChangeCurSelectItemOption({ key, value });
-              }
-            "
-          ></et>
+          <template v-if="componentNameList.includes(item.type)">
+            <et
+              v-if="item.judge ? item.judge(curSelectItem) : true"
+              class="modify-item"
+              :key="key"
+              :is="`HirasawaYui_${item.type}`"
+              :config="item"
+              :value="curSelectItem[key]"
+              @input="
+                value => {
+                  ChangeCurSelectItemOption({ key, value });
+                }
+              "
+            ></et>
+          </template>
+
           <div v-else :key="key" class="modify-item error">
             该属性编辑组件无效
           </div>
@@ -49,25 +52,29 @@
         ref="form"
       >
         <template v-for="(item, key) in formEditJson">
-          <et
-            v-if="componentNameList.indexOf(item.type) > -1"
-            class="modify-item"
-            :key="key"
-            :is="`HirasawaYui_${item.type}`"
-            :config="item"
-            :value="formConfig[key]"
-            @change="
-              value => {
-                ChangeFormConfigItem({ key, value });
-              }
-            "
-          ></et>
+          <template v-if="componentNameList.includes(item.type)">
+            <et
+              v-if="item.judge ? item.judge(formConfig) : true"
+              class="modify-item"
+              :key="key"
+              :is="`HirasawaYui_${item.type}`"
+              :config="item"
+              :value="formConfig[key]"
+              @input="
+                value => {
+                  ChangeFormConfigItem({ key, value });
+                }
+              "
+            ></et>
+          </template>
+
           <div v-else :key="key" class="modify-item error">
             该属性编辑组件无效
           </div>
         </template>
       </el-form>
     </el-tab-pane>
+    <el-tab-pane label="函数" name="tree"> 123 </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -76,12 +83,9 @@ import { componentEditList, componentNameList } from "@/components/form";
 import formEditJson from "../config/formEditJson";
 // vuex
 import { createNamespacedHelpers } from "vuex";
-const {
-  mapState,
-  mapMutations,
-  mapGetters,
-  mapActions
-} = createNamespacedHelpers("YUI_FormDesign");
+const { mapState, mapMutations, mapGetters } = createNamespacedHelpers(
+  "YUI_FormDesign"
+);
 
 export default {
   name: "modify",
@@ -124,6 +128,15 @@ export default {
   box-sizing: border-box;
   .el-tabs__header {
     margin: 0 !important;
+    .el-tabs__nav-wrap {
+      padding: 0 20px;
+      &::after {
+        height: 1px;
+      }
+    }
+    .el-tabs__active-bar {
+      height: 1.5px;
+    }
   }
   .el-tabs__content {
     height: calc(100% - 40px);
@@ -134,7 +147,7 @@ export default {
     }
   }
   .modify-item {
-    padding: 20px;
+    padding: 15px;
     box-sizing: border-box;
     border-bottom: $border-box;
     &.error {

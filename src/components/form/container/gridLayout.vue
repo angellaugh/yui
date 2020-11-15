@@ -24,7 +24,6 @@
         group="formDesign"
         ghostClass="ghost"
         handle=".drag-move"
-        :animation="200"
       >
         <transition-group
           :style="item.children.length === 0 ? 'min-height:100px' : ''"
@@ -118,7 +117,7 @@ export default {
       type: "switchInput",
       label: "使用响应式布局"
     },
-    list: {
+    container: {
       type: "dynamicColEditor",
       options: {}
     },

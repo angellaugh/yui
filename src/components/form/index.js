@@ -11,6 +11,8 @@ let componentNameList = []; //用于判断组件是否存在
 let componentList = {}; // 组件列表
 let componentEditList = {}; // 组件编辑器数据列表
 
+import mixin from "./mixin";
+
 const regexp = new RegExp("(?<=/).*?(?=/)");
 if (!inited) {
   inited = true;
@@ -25,7 +27,10 @@ if (!inited) {
     const ctrl = componentConfig.default || componentConfig;
     // 如果vue文件里没有enable属性便跳过
     if (!ctrl.enable) return;
-    componentInstanceList.push(ctrl);
+    componentInstanceList.push({
+      ...ctrl,
+      mixins: ctrl.mixins ? [...ctrl.mixins, mixin] : [mixin]
+    });
     !componentList[groupReg[0]] && (componentList[groupReg[0]] = []);
     componentList[groupReg[0]].push(ctrl.defaultConfig);
     componentNameList.push(ctrl.name);

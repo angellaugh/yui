@@ -10,30 +10,32 @@
       <i slot="prefix" class="el-input__icon el-icon-search"></i>
     </el-input>
 
-    <div
-      class="assembly-component_warp"
-      v-for="(array, label) in filterComponentList"
-      :key="label"
-    >
-      <h3 class="assembly-title">{{ labelDict[label] }}</h3>
-      <draggable
-        class="drag-list"
-        :list="array"
-        :group="{ name: 'formDesign', pull: 'clone', put: false }"
-        :sort="false"
-        :clone="formMoveClone"
-        :move="handleMove"
+    <div class="assembly-component_warp">
+      <div
+        class="assembly-components"
+        v-for="(array, label) in filterComponentList"
+        :key="label"
       >
-        <div
-          class="drag-list-item"
-          @click.stop="copyItemToFormListJson(item)"
-          v-for="item in array"
-          :key="item.type"
+        <h3 class="assembly-title">{{ labelDict[label] }}</h3>
+        <draggable
+          class="drag-list"
+          :list="array"
+          :group="{ name: 'formDesign', pull: 'clone', put: false }"
+          :sort="false"
+          :clone="formMoveClone"
+          :move="handleMove"
         >
-          <i class="drag-list-item__icon iconfont" :class="item.icon"></i>
-          <div class="drag-list-item__label">{{ item.options.label }}</div>
-        </div>
-      </draggable>
+          <div
+            class="drag-list-item"
+            @click.stop="copyItemToFormListJson(item)"
+            v-for="item in array"
+            :key="item.type"
+          >
+            <i class="drag-list-item__icon iconfont" :class="item.icon"></i>
+            <div class="drag-list-item__label">{{ item.options.label }}</div>
+          </div>
+        </draggable>
+      </div>
     </div>
   </div>
 </template>
@@ -84,6 +86,7 @@ export default {
       return true;
     },
     copyItemToFormListJson(item) {
+      console.log(this.componentList, 12312);
       let data;
       if (item.group !== "container") {
         data = {
@@ -121,7 +124,8 @@ export default {
 <style scoped lang="scss">
 .assembly-component_warp {
   overflow-y: auto;
-  @include hide-scrollbar;
+  flex: 1;
+  @include diy-scrollbar;
 }
 .ghost {
   @include move-style;
@@ -135,16 +139,18 @@ export default {
   width: var(--assembly-width);
   background: #fff;
   border-right: $border-box;
-  padding: 20px;
+  padding: 15px;
   box-sizing: border-box;
   color: $font-color-base;
-  .assembly-title {
+  .assembly-components {
     margin-top: 10px;
-    font-size: $font-size-base;
-    user-select: none;
     &:first-of-type {
       margin-top: 20px;
     }
+  }
+  .assembly-title {
+    font-size: $font-size-base;
+    user-select: none;
   }
 
   .drag-list {
@@ -164,9 +170,7 @@ export default {
       cursor: move;
       transition: color 0.2s;
       user-select: none;
-      width: calc(
-        var(--assembly-width) / 2 - 25px
-      ); // assembly 的padding占了40px,间隙设置10px
+      width: calc(100% / 2 - 5px); // assembly 的padding占了40px,间隙设置10px
       &:hover {
         border: $border-dashed-label;
         color: #409eff;

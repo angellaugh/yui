@@ -1,6 +1,4 @@
-import objUtil from "@/utils/objUtil";
 import storage from "@/utils/storage";
-import { getUUIDList } from "@/utils/uuid";
 
 import util from "./util";
 const state = {
@@ -74,7 +72,7 @@ const actions = {
   // 清空历史记录
   clearData({ commit }) {
     const max = storage.ss.get("historyMax");
-    storage.ss.remove("historyPoint");
+    storage.ss.remove("historyPointer");
     storage.ss.remove("historyMax");
     let len = 1;
     while (len <= max) {
@@ -86,27 +84,27 @@ const actions = {
   },
   // 撤销历史
   backAction({ commit }) {
-    let point = storage.ss.get("historyPoint") - 1;
+    let point = storage.ss.get("historyPointer") - 1;
     if (point > 0) {
       commit("SetSkipWatchFlag", true);
       commit("UploadFormList", storage.ss.get(`history_${point}`));
-      storage.ss.set("historyPoint", point);
+      storage.ss.set("historyPointer", point);
       commit("SetCurSelectItemUUID", null);
     } else if (Number(point) === 0) {
       commit("SetSkipWatchFlag", true);
       commit("UploadFormList", []);
-      storage.ss.set("historyPoint", point);
+      storage.ss.set("historyPointer", point);
       commit("SetCurSelectItemUUID", null);
     }
   },
   // 重做历史
   redoAction({ commit }) {
-    let length = storage.ss.get("historyPoint") + 1;
+    let length = storage.ss.get("historyPointer") + 1;
     const max = storage.ss.get("historyMax");
     if (length <= max) {
       commit("SetSkipWatchFlag", true);
       commit("UploadFormList", storage.ss.get(`history_${length}`));
-      storage.ss.set("historyPoint", length);
+      storage.ss.set("historyPointer", length);
     }
   }
   // =====================  历史记录 end =========================

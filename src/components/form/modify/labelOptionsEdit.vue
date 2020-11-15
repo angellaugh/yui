@@ -1,20 +1,33 @@
 <template>
   <el-form-item :label="options.label">
     <el-checkbox
-      style="margin-right: 20px"
-      :value="value.checked"
+      style=" display: block"
+      :value="value.enable"
       @change="
         e => {
-          $emit('change', { ...value, checked: e });
+          $emit('input', { ...value, enable: e });
+        }
+      "
+      >显示标题</el-checkbox
+    >
+
+    <el-checkbox
+      v-if="value.enable"
+      style="margin-right: 20px"
+      :value="value.diyWidth"
+      @change="
+        e => {
+          $emit('input', { ...value, diyWidth: e });
         }
       "
       >自定义</el-checkbox
     >
     <el-input-number
+      v-if="value.enable"
       :value="value.width"
       @change="
         e => {
-          $emit('change', { ...value, width: e });
+          $emit('input', { ...value, width: e });
         }
       "
       :disabled="!value.checked"
@@ -27,7 +40,7 @@
 
 <script>
 import mixin from "../mixin";
-const type = "labelWidthEdit"; // 组件名称
+const type = "labelOptionsEdit"; // 组件名称
 
 export default {
   name: type,
@@ -46,7 +59,7 @@ export default {
     options: {
       type: type,
       value: {},
-      label: "标题宽度", // 对应editConfig ，如果不存在 便不可编辑
+      label: "标题配置", // 对应editConfig ，如果不存在 便不可编辑
       min: 0,
       max: 300
     }

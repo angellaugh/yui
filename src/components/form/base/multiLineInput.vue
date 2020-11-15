@@ -17,21 +17,13 @@
 </template>
 
 <script>
-import mixin from "../mixin";
-
 const type = "multiLineInput"; // 组件名称
 
 export default {
   name: type,
   enable: true, // 启用否
-  mixins: [mixin],
   data() {
     return {};
-  },
-  props: {
-    value: {
-      type: String
-    }
   },
 
   defaultConfig: {
@@ -48,7 +40,6 @@ export default {
       placeholder: "",
       max: 300,
       rows: 2,
-      style: "",
       attributes: [],
       rules: []
     }
@@ -101,10 +92,6 @@ export default {
     rules: {
       type: "rulseEditor",
       config: ["haveRequired", "havePreinstall"] //        haveRequired 必填, haveRegExp 正则, havePreinstall 预设
-    },
-    style: {
-      type: "multiLineInput",
-      label: "自定义样式"
     }
   }
 };

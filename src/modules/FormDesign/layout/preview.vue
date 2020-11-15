@@ -36,8 +36,12 @@
         ref="form"
         :label-width="`${String(formConfig['label-width'])}px`"
         :size="formConfig['size']"
-        :style="formConfig.style"
+        :class="formConfig.className"
         :label-position="formConfig['label-position']"
+        :label-suffix="`${formConfig['label-suffix']}`"
+        :status-icon="formConfig['status-icon']"
+        :show-message="formConfig['show-message']"
+        :inline-message="formConfig['inline-message']"
       >
         <draggable
           class="drag-area"
@@ -104,9 +108,6 @@
         ref="generateForm"
         :json="{ config: formConfig, list: formList }"
       >
-        <template #slotBlock="value,changeValue">
-          <el-input :value="value" @input="changeValue"> </el-input>
-        </template>
       </GenerateForm>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickResetForm">重置表单</el-button>
@@ -122,7 +123,7 @@
 // compoennt
 import draggable from "vuedraggable";
 import JsonViewer from "vue-json-viewer";
-import widget from "./widget";
+import widget from "../components/widget";
 // vuex
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapGetters, mapActions } = createNamespacedHelpers(

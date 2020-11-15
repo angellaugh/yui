@@ -30,7 +30,7 @@
           $emit('input', { ...value, width: e });
         }
       "
-      :disabled="!value.checked"
+      :disabled="!value.diyWidth"
       :min="options.min"
       :max="options.max"
       label="描述文字"

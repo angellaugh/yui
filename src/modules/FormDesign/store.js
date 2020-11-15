@@ -7,11 +7,14 @@ const state = {
   // form配置
 
   formConfig: {
-    test: "",
     "label-width": 100,
     size: "small",
     "label-position": "right",
-    style: ""
+    className: "",
+    "label-suffix": ":",
+    "inline-message": false,
+    "show-message": true,
+    "status-icon": false
   },
   // 当前选择对象的UUID
   curSelectItemUUID: null,

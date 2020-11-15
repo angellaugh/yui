@@ -94,7 +94,6 @@ export default {
       useResponsive: false, // 使用响应式设计
       justify: "start",
       align: "top",
-      style: "",
       container: [
         {
           col: 12,
@@ -148,10 +147,6 @@ export default {
           { value: "bottom", label: "底部" }
         ]
       }
-    },
-    style: {
-      type: "multiLineInput",
-      label: "自定义样式"
     }
   }
 };

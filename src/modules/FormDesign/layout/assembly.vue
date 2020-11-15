@@ -13,13 +13,19 @@
     <div class="assembly-component_warp">
       <div
         class="assembly-components"
-        v-for="(array, label) in filterComponentList"
-        :key="label"
+        v-for="item in filterComponentList"
+        :key="item.label"
       >
-        <h3 class="assembly-title">{{ labelDict[label] }}</h3>
+        <h3 class="assembly-title">
+          {{
+            groupDict[item.label] && groupDict[item.label].name
+              ? groupDict[item.label].name
+              : item.label
+          }}
+        </h3>
         <draggable
           class="drag-list"
-          :list="array"
+          :list="item.list"
           :group="{ name: 'formDesign', pull: 'clone', put: false }"
           :sort="false"
           :clone="formMoveClone"
@@ -27,12 +33,12 @@
         >
           <div
             class="drag-list-item"
-            @click.stop="copyItemToFormListJson(item)"
-            v-for="item in array"
-            :key="item.type"
+            @click.stop="copyItemToFormListJson(ite)"
+            v-for="ite in item.list"
+            :key="ite.type"
           >
-            <i class="drag-list-item__icon iconfont" :class="item.icon"></i>
-            <div class="drag-list-item__label">{{ item.options.label }}</div>
+            <i class="drag-list-item__icon iconfont" :class="ite.icon"></i>
+            <div class="drag-list-item__label">{{ ite.options.label }}</div>
           </div>
         </draggable>
       </div>
@@ -44,6 +50,8 @@
 import draggable from "vuedraggable";
 import { componentList } from "@/components/form";
 import { uuid, getName } from "@/utils/uuid.js";
+
+import groupDict from "@/components/form/groupDict";
 // vuex
 import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("YUI_FormDesign");
@@ -56,10 +64,7 @@ export default {
   data() {
     return {
       searchText: "",
-      labelDict: {
-        base: "基础组件",
-        container: "容器组件"
-      },
+      groupDict,
       componentList
     };
   },
@@ -68,15 +73,27 @@ export default {
   computed: {
     filterComponentList() {
       const tempList = JSON.parse(JSON.stringify(componentList));
+      let arr = [];
       for (let key in tempList) {
         const filterList = tempList[key].filter(_ =>
           _.options.label.includes(this.searchText)
         );
         filterList.length > 0 && key !== "modify"
-          ? (tempList[key] = filterList)
+          ? arr.push({
+              label: key,
+              list: filterList
+            })
           : delete tempList[key];
       }
-      return tempList;
+      arr.sort((x, y) => {
+        const labelX = groupDict[x.label];
+        const labelY = groupDict[y.label];
+        if (!labelX || !labelY) {
+          return false;
+        }
+        return labelX.index - labelY.index;
+      });
+      return arr;
     }
   },
 
@@ -86,7 +103,6 @@ export default {
       return true;
     },
     copyItemToFormListJson(item) {
-      console.log(this.componentList, 12312);
       let data;
       if (item.group !== "container") {
         data = {

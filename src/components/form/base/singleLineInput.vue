@@ -1,18 +1,3 @@
-<template>
-  <FormItemWrap :options="options">
-    <el-input
-      :disabled="options.attributes.includes('disabled')"
-      :readonly="options.attributes.includes('readonly')"
-      :show-password="options.attributes.includes('show-password')"
-      :clearable="options.attributes.includes('clearable')"
-      :show-word-limit="options.attributes.includes('show-word-limit')"
-      :value="value"
-      :maxlength="options.max"
-      @input="changeValue"
-      :placeholder="options.placeholder"
-    ></el-input>
-  </FormItemWrap>
-</template>
 <script>
 const type = "singleLineInput"; // 组件名称
 export default {
@@ -30,6 +15,7 @@ export default {
       label: "单行输入框", // 对应editConfig ，如果不存在 便不可编辑
       type: type, //组件名称
       value: "", //值
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -51,6 +37,10 @@ export default {
       type: "singleLineInput",
       label: "标题",
       max: null
+    },
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
     },
     labelOptions: {
       type: "labelOptionsEdit"
@@ -83,6 +73,24 @@ export default {
       type: "rulseEditor",
       config: ["haveRequired", "havePreinstall"] //        haveRequired 必填, haveRegExp 正则, havePreinstall 预设
     }
+  },
+  render(h) {
+    const { options, value, changeValue } = this;
+    return (
+      <FormItemWrap options={options}>
+        <el-input
+          disabled={options.attributes.includes("disabled")}
+          readonly={options.attributes.includes("readonly")}
+          show-password={options.attributes.includes("show-password")}
+          clearable={options.attributes.includes("clearable")}
+          show-word-limit={options.attributes.includes("show-word-limit")}
+          value={value}
+          maxlength={options.max}
+          on-input={changeValue}
+          placeholder={options.placeholder}
+        ></el-input>
+      </FormItemWrap>
+    );
   }
 };
 </script>

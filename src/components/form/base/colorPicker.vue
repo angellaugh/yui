@@ -19,6 +19,7 @@ export default {
       type: type,
       label: "颜色选择器", // 对应editConfig ，如果不存在 便不可编辑
       value: null, // 如果没有props 使用此值作为默认值
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -34,6 +35,10 @@ export default {
       // 属性编辑器的配置,就是defalutConfig的data
       label: "标题",
       max: null
+    },
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
     },
     labelOptions: {
       type: "labelOptionsEdit"

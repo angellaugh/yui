@@ -14,6 +14,7 @@ export default {
       type,
       value: 100,
       label: "计数器",
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -59,6 +60,10 @@ export default {
       type: "singleLineInput",
       label: "占位文本"
     },
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
+    },
     labelOptions: {
       type: "labelOptionsEdit"
     },
@@ -78,10 +83,6 @@ export default {
     rules: {
       type: "rulseEditor",
       config: ["haveRequired"] //        haveRequired 必填, haveRegExp 正则, havePreinstall 预设
-    },
-    style: {
-      type: "multiLineInput",
-      label: "自定义样式"
     }
   },
   render(h) {

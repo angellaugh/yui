@@ -18,6 +18,7 @@ export default {
       type: type,
       value: 0, // 如果没有props 使用此值作为默认值
       label: "评分输入框", // 对应editConfig ，如果不存在 便不可编辑
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -40,8 +41,12 @@ export default {
       label: "标题",
       max: null
     },
-    labelWidth: {
-      type: "labelWidthEdit"
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
+    },
+    labelOptions: {
+      type: "labelOptionsEdit"
     },
     attributes: {
       type: "checkboxGroup",

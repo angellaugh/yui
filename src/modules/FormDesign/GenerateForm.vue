@@ -1,12 +1,16 @@
 <template>
   <el-form
-    :style="json.config.style"
     class="generateForm"
     :label-position="json.config['label-position']"
     :label-width="`${json.config['label-width']}px`"
+    :label-suffix="`${json.config['label-suffix']}`"
+    :class="json.config.className"
     :size="json.config.size"
     :model="formData"
     :disabled="disabled"
+    :status-icon="json.config['status-icon']"
+    :show-message="json.config['show-message']"
+    :inline-message="json.config['inline-message']"
     ref="ruleForm"
   >
     <template v-for="config in json.list">
@@ -28,7 +32,7 @@
 </template>
 
 <script>
-import { componentList, componentNameList } from "@/components/form";
+import { componentNameList } from "@/components/form";
 export default {
   name: "GenerateForm",
   data() {

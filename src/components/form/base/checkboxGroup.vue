@@ -22,6 +22,7 @@ export default {
       value: [], // 如果没有props 使用此值作为默认值
       label: "多选框组", // 对应editConfig ，如果不存在 便不可编辑
       isButton: false,
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -47,6 +48,10 @@ export default {
   editConfig: {
     options: {
       type: "dynamicEditor"
+    },
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
     },
     labelOptions: {
       type: "labelOptionsEdit"

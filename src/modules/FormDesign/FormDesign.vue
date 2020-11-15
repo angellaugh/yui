@@ -10,9 +10,9 @@
 </template>
 <script>
 // components
-import assembly from "./components/assembly";
-import preview from "./components/preview";
-import modify from "./components/modify";
+import assembly from "./layout/assembly";
+import preview from "./layout/preview";
+import modify from "./layout/modify";
 
 import monaco from "./components/monaco";
 // vuex

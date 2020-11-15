@@ -1,21 +1,3 @@
-<template>
-  <FormItemWrap :options="options">
-    <el-input
-      type="textarea"
-      :disabled="options.attributes.includes('disabled')"
-      :readonly="options.attributes.includes('readonly')"
-      :show-password="options.attributes.includes('show-password')"
-      :clearable="options.attributes.includes('clearable')"
-      :show-word-limit="options.attributes.includes('show-word-limit')"
-      :rows="options.rows"
-      :value="value"
-      :maxlength="options.max"
-      @input="changeValue"
-      :placeholder="options.placeholder"
-    ></el-input>
-  </FormItemWrap>
-</template>
-
 <script>
 const type = "multiLineInput"; // 组件名称
 
@@ -33,8 +15,10 @@ export default {
       type: type,
       label: "多行输入框", // 对应editConfig ，如果不存在 便不可编辑
       value: "",
-      labelWidth: {
-        checked: false,
+      className: "",
+      labelOptions: {
+        enable: true,
+        diyWidth: false,
         width: 100
       },
       placeholder: "",
@@ -62,8 +46,12 @@ export default {
       label: "标题",
       max: null
     },
-    labelWidth: {
-      type: "labelWidthEdit"
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
+    },
+    labelOptions: {
+      type: "labelOptionsEdit"
     },
     placeholder: {
       type: "singleLineInput",
@@ -93,6 +81,26 @@ export default {
       type: "rulseEditor",
       config: ["haveRequired", "havePreinstall"] //        haveRequired 必填, haveRegExp 正则, havePreinstall 预设
     }
+  },
+  render(h) {
+    const { options, value, changeValue } = this;
+    return (
+      <FormItemWrap options={options}>
+        <el-input
+          type="textarea"
+          disabled={options.attributes.includes("disabled")}
+          readonly={options.attributes.includes("readonly")}
+          show-password={options.attributes.includes("show-password")}
+          clearable={options.attributes.includes("clearable")}
+          show-word-limit={options.attributes.includes("show-word-limit")}
+          rows={options.rows}
+          value={value}
+          maxlength={options.max}
+          on-input={changeValue}
+          placeholder={options.placeholder}
+        ></el-input>
+      </FormItemWrap>
+    );
   }
 };
 </script>

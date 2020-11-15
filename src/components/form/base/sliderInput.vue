@@ -19,6 +19,7 @@ export default {
       value: null, // 如果没有props 使用此值作为默认值
       type: type,
       label: "滑块", // 对应editConfig ，如果不存在 便不可编辑
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -54,6 +55,10 @@ export default {
       type: "singleLineInput",
       label: "标题",
       max: null
+    },
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
     },
     labelOptions: {
       type: "labelOptionsEdit"

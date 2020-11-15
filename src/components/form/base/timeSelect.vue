@@ -15,7 +15,8 @@ export default {
     options: {
       type: type,
       value: "",
-      label: "固定时间选择器", // 对应editConfig ，如果不存在 便不可编辑
+      label: "固定时间", // 对应editConfig ，如果不存在 便不可编辑
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -53,8 +54,12 @@ export default {
       type: "singleLineInput",
       label: "标签名称"
     },
-    labelWidth: {
-      type: "labelWidthEdit"
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
+    },
+    labelOptions: {
+      type: "labelOptionsEdit"
     },
     "value-format": {
       type: "singleLineInput",
@@ -122,6 +127,7 @@ export default {
     return (
       <FormItemWrap options={options}>
         <el-time-select
+          style="width:100%"
           picker-options={tempOptions}
           disabled={options.attributes.includes("disabled")}
           readonly={options.attributes.includes("readonly")}

@@ -17,6 +17,7 @@ export default {
       value: "",
       label: "日期选择器", // 对应editConfig ，如果不存在 便不可编辑
       selectType: "date",
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -54,6 +55,10 @@ export default {
     label: {
       type: "singleLineInput",
       label: "标签名称"
+    },
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
     },
     labelOptions: {
       type: "labelOptionsEdit"
@@ -116,6 +121,7 @@ export default {
     return (
       <FormItemWrap options={options}>
         <el-date-picker
+          style="width:100%"
           disabled={options.attributes.includes("disabled")}
           readonly={options.attributes.includes("readonly")}
           editable={options.attributes.includes("editable")}

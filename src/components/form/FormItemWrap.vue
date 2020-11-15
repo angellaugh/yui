@@ -1,6 +1,6 @@
 <template>
   <el-form-item
-    :style="options.style"
+    :class="options.className"
     :label="
       options.labelOptions && options.labelOptions.enable
         ? options.label

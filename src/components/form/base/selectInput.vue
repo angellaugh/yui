@@ -16,6 +16,7 @@ export default {
       type: type,
       value: "",
       label: "下拉选择器", // 对应editConfig ，如果不存在 便不可编辑
+      className: "",
       labelOptions: {
         enable: true,
         diyWidth: false,
@@ -43,6 +44,10 @@ export default {
   editConfig: {
     options: {
       type: "dynamicEditor"
+    },
+    className: {
+      type: "singleLineInput",
+      label: "class名称"
     },
     labelOptions: {
       type: "labelOptionsEdit"

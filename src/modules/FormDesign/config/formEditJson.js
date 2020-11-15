@@ -46,8 +46,24 @@ export default {
       ]
     }
   },
-  style: {
-    type: "multiLineInput",
-    label: "自定义样式"
+  "inline-message": {
+    type: "switchInput",
+    label: "行内显示校验结果"
+  },
+  "show-message": {
+    type: "switchInput",
+    label: "是否显示校验错误信息"
+  },
+  "status-icon": {
+    type: "switchInput",
+    label: "显示校验反馈图标"
+  },
+  className: {
+    type: "singleLineInput",
+    label: "class名称"
+  },
+  "label-suffix": {
+    type: "singleLineInput",
+    label: "标签的后缀"
   }
 };

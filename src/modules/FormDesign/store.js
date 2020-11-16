@@ -7,10 +7,11 @@ const state = {
   // form配置
 
   formConfig: {
+    useDialog: false,
+    className: "",
     "label-width": 100,
     size: "small",
     "label-position": "right",
-    className: "",
     "label-suffix": ":",
     "inline-message": false,
     "show-message": true,

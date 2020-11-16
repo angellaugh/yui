@@ -97,6 +97,7 @@
     </el-dialog>
 
     <el-dialog
+      v-if="!formConfig.useDialog"
       append-to-body
       :close-on-press-escape="false"
       :close-on-click-modal="false"
@@ -104,13 +105,10 @@
       :visible.sync="dialogPreviewForm"
     >
       <GenerateForm
-        v-if="dialogPreviewForm"
+        @closeDialog="dialogPreviewForm = false"
         ref="generateForm"
         :json="{ config: formConfig, list: formList }"
       >
-        <template #slotBlock123="value,row">
-          <div>{{ value }}</div>
-        </template>
       </GenerateForm>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickResetForm">重置表单</el-button>
@@ -119,6 +117,14 @@
         >
       </span>
     </el-dialog>
+    <GenerateForm
+      v-else
+      :visible.sync="dialogPreviewForm"
+      @closeDialog="dialogPreviewForm = false"
+      ref="generateForm"
+      :json="{ config: formConfig, list: formList }"
+    >
+    </GenerateForm>
   </div>
 </template>
 

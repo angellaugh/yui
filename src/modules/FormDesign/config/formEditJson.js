@@ -1,4 +1,8 @@
 export default {
+  useDialog: {
+    type: "switchInput",
+    label: "使用模态框"
+  },
   "label-width": {
     type: "counterInput",
     label: "表单标签宽度"

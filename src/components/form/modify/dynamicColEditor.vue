@@ -2,13 +2,12 @@
   <FormItemWrap :options="options">
     <draggable
       style="margin-top: 10px"
-      :list="value.container"
+      :list="value"
       v-bind="{
         group: { name: 'options' },
         ghostClass: 'ghost',
         handle: '.drag-item'
       }"
-      handle=".drag-item"
     >
       <div class="dynamic-options" v-for="(item, index) in value" :key="index">
         <div class="dynamic-options_input" v-if="!curSelectItem.useResponsive">
@@ -180,12 +179,12 @@ export default {
     handleOptionsRemove(index) {
       let temp = JSON.parse(JSON.stringify(this.value));
       temp.splice(index, 1);
-      this.$emit("change", temp);
+      this.$emit("input", temp);
     },
     handleOptionsAdd() {
       let temp = JSON.parse(JSON.stringify(this.value));
       temp.push({ col: 12, children: [] });
-      this.$emit("change", temp);
+      this.$emit("input", temp);
     }
   },
   mounted() {}

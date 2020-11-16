@@ -108,9 +108,6 @@
         ref="generateForm"
         :json="{ config: formConfig, list: formList }"
       >
-        <template #slotBlock123="value,row">
-          <div>{{ value }}</div>
-        </template>
       </GenerateForm>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickResetForm">重置表单</el-button>

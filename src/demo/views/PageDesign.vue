@@ -1,5 +1,6 @@
 <template>
-  <TableDesign> </TableDesign>
+  <!-- <PageDesign> </PageDesign> -->
+  <div>建设中</div>
 </template>
 
 <script>

@@ -3,9 +3,6 @@
     <assembly></assembly>
     <preview ref="preview"></preview>
     <modify ref="modify"></modify>
-    <!-- <el-dialog title="函数编辑" :visible.sync="x">
-      <monaco />
-    </el-dialog> -->
   </div>
 </template>
 <script>
@@ -28,14 +25,11 @@ export default {
   components: {
     assembly,
     preview,
-    modify,
-    monaco
+    modify
   },
   data() {
     return {
-      options: {},
-
-      x: true
+      options: {}
     };
   },
   computed: {

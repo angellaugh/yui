@@ -90,6 +90,8 @@ export default {
     return (
       <FormItemWrap options={options}>
         <el-input-number
+          disabled={options.attributes.includes("disabled")}
+          controls={options.attributes.includes("controls")}
           step-strictly={options.attributes.includes("step-strictly")}
           min={options.min}
           max={options.max}

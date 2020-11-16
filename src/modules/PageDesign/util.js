@@ -27,9 +27,9 @@ function deleteItem(json, uuid) {
     if (item.uuid === uuid) {
       json.splice(index, 1)[0];
     }
-    if (item.container && item.container.length > 0) {
-      item.container.forEach(_ => {
-        deleteItem(_.children, uuid);
+    if (item.group === "container") {
+      item.options.list.forEach(_ => {
+        deleteItem(_.list, uuid);
       });
     }
   });

@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["form-design"],{b599:function(n,e,t){"use strict";t.r(e);var r=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[t("FormDesign")],1)},s=[],i={},l=i,o=t("2877"),u=Object(o["a"])(l,r,s,!1,null,null,null);e["default"]=u.exports}}]);

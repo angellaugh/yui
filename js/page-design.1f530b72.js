@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["page-design"],{ddd6:function(e,n,t){"use strict";t.r(n);var l=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[e._v("建设中")])},s=[],u={},a=u,c=t("2877"),d=Object(c["a"])(a,l,s,!1,null,null,null);n["default"]=d.exports}}]);

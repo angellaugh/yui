@@ -11,6 +11,9 @@ export default {
       default: () => {
         return () => ({});
       }
+    },
+    formConfig:{
+      form:'formConfig'
     }
   },
   components: {

@@ -1,6 +1,8 @@
 <template>
   <el-form-item
-    :class="options.className"
+    :class="`${options.className} ${
+      formConfig['show-message'] ? '' : 'hide-error-message'
+    }`"
     :label="
       options.labelOptions && options.labelOptions.enable
         ? options.label
@@ -27,19 +29,24 @@ export default {
   props: {
     options: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
+  },
+  inject: {
+    formConfig: {
+      form: "formConfig",
+    },
   },
   computed: {
     rules() {
       let tempList = [];
       if (this.options.rules) {
-        this.options.rules.forEach(element => {
+        this.options.rules.forEach((element) => {
           switch (element.type) {
             case "required":
               tempList.push({
                 required: true,
-                message: element.msg ? element.msg : "该字段必填"
+                message: element.msg ? element.msg : "该字段必填",
               });
               break;
             case "preinstall":
@@ -49,8 +56,8 @@ export default {
                 message: element.msg
                   ? element.msg
                   : `该字段必须为${
-                      rulesDict.find(_ => _.value === element.rule).label
-                    }`
+                      rulesDict.find((_) => _.value === element.rule).label
+                    }`,
               });
               break;
             default:
@@ -59,9 +66,7 @@ export default {
         });
       }
       return tempList;
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style></style>

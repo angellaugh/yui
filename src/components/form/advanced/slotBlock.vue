@@ -10,6 +10,7 @@ export default {
   defaultConfig: {
     index: 2,
     icon: "icon-shuzishurukuang",
+    noField: true, // 没有字段
     options: {
       type,
       value: "",

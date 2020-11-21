@@ -89,6 +89,8 @@ export default {
     options: {
       type: type,
       label: "栅格", // 对应editConfig ，如果不存在 便不可编辑
+      noField: true, // 没有字段
+
       gutter: 0, // 间隔
       useFlex: true, // 使用flex布局
       useResponsive: false, // 使用响应式设计

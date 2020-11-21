@@ -1,6 +1,6 @@
 <template>
   <temp
-    :is="json.config.useDialog ? 'el-dialog' : 'div'"
+    :is="formJson.config.useDialog ? 'el-dialog' : 'div'"
     :visible="visible"
     v-bind="dialogOptions"
     v-loading="loading"
@@ -13,19 +13,19 @@
   >
     <el-form
       class="generateForm"
-      :label-position="json.config['label-position']"
-      :label-width="`${json.config['label-width']}px`"
-      :label-suffix="`${json.config['label-suffix']}`"
-      :class="json.config.className"
-      :size="json.config.size"
+      :label-position="formJson.config['label-position']"
+      :label-width="`${formJson.config['label-width']}px`"
+      :label-suffix="`${formJson.config['label-suffix']}`"
+      :class="formJson.config.className"
+      :size="formJson.config.size"
       :model="formData"
       :disabled="disabled"
-      :status-icon="json.config['status-icon']"
-      :show-message="json.config['show-message']"
-      :inline-message="json.config['inline-message']"
+      :status-icon="formJson.config['status-icon']"
+      :show-message="formJson.config['show-message']"
+      :inline-message="formJson.config['inline-message']"
       ref="ruleForm"
     >
-      <template v-for="config in json.list">
+      <template v-for="config in formJson.list">
         <template v-if="componentNameList.includes(config.type)">
           <et
             v-if="config.judge ? config.judge(formData) : true"
@@ -42,7 +42,7 @@
       </template>
     </el-form>
 
-    <span v-if="json.config.useDialog" slot="footer" class="dialog-footer">
+    <span v-if="formJson.config.useDialog" slot="footer" class="dialog-footer">
       <slot name="dialog-footer">
         <el-button
           @click="
@@ -68,22 +68,26 @@
 
 <script>
 import { componentNameList } from "@/components/form";
+import objUtil from "@/utils/objUtil.js";
 export default {
   name: "GenerateForm",
   data() {
     return {
       componentNameList,
-      formData: {}
+      formData: {},
+      formJson: { config: {}, list: [] }
     };
   },
   provide() {
     return {
-      getSlot: this.getSlot
+      getSlot: this.getSlot,
+      formConfig: this.formJson.config
     };
   },
   props: {
     json: {
-      type: Object
+      type: [String, Object],
+      required: true
     },
     disabled: {
       type: Boolean,
@@ -108,9 +112,24 @@ export default {
       }
     }
   },
+  watch: {
+    json: {
+      handler(data) {
+        if (objUtil.isObject(data)) {
+          this.formJson = JSON.parse(JSON.stringify(data));
+        } else {
+          try {
+            this.formJson = JSON.parse(data);
+          } catch {
+            console.error("yui：JSON parse Error!");
+          }
+        }
+      },
+      immediate: true
+    }
+  },
   created() {
-    this.initJson(true);
-    console.log(this.json, "this.json");
+    this.initFormJson(true);
   },
 
   methods: {
@@ -124,14 +143,14 @@ export default {
           element.container.forEach(ite => {
             temp = { ...temp, ...this.getNameList(ite.children) };
           });
-        } else {
-          temp[element.fieldName] = element.value;
         }
+
+        element.fieldName && (temp[element.fieldName] = element.value);
       });
       return temp;
     },
-    initJson(init) {
-      this.formData = this.getNameList(this.json.list);
+    initFormJson(init) {
+      this.formData = this.getNameList(this.formJson.list);
       console.log(this.formData);
       !init && this.$refs["ruleForm"].clearValidate();
     },

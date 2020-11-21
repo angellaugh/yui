@@ -12,20 +12,21 @@ module.exports = {
   productionSourceMap: false,
   publicPath: "./",
   css: {
+    extract: false,
     loaderOptions: {
       sass: {
         prependData: `@import "./src/assets/scss/variables.scss";`
       }
     }
   },
-  configureWebpack: {
-    plugins: [
-      new MonacoWebpackPlugin({
-        languages: ["javascript", "css", "html", "json"],
-        features: ["coreCommands", "find"]
-      })
-    ]
-  },
+  // configureWebpack: {
+  //   plugins: [
+  //     new MonacoWebpackPlugin({
+  //       languages: ["javascript", "css", "html", "json"],
+  //       features: ["coreCommands", "find"]
+  //     })
+  //   ]
+  // },
 
   chainWebpack: config => {
     config.optimization.splitChunks({

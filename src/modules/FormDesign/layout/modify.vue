@@ -1,5 +1,5 @@
 <template>
-  <el-tabs class="modify " v-model="activeName" stretch>
+  <el-tabs class="modify" v-model="activeName" stretch>
     <el-tab-pane label="组件属性" name="one">
       <el-form
         class="modify-form"
@@ -9,7 +9,7 @@
         v-if="curSelectItem"
       >
         <nameEdit
-          v-if="curSelectItem.group !== 'container'"
+          v-if="!curSelectItem.noField"
           class="modify-item"
           is="HirasawaYui_singleLineInput"
           v-model="curSelectItem.fieldName"

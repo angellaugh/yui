@@ -25,17 +25,23 @@ export default {
   components: {
     assembly,
     preview,
-    modify
+    modify,
+  },
+  provide() {
+    return {
+      getSlot: this.getSlot,
+      formConfig: this.formConfig,
+    };
   },
   data() {
     return {
-      options: {}
+      options: {},
     };
   },
   computed: {
     ...mapState(["formList", "formConfig", "curSelectItem"]),
     ...mapGetters([]),
-    ...mapActions(["handleDeleteItem", "clearData"])
+    ...mapActions(["handleDeleteItem", "clearData"]),
   },
   methods: {
     onChange(value) {
@@ -50,13 +56,13 @@ export default {
       } else {
         this.$emit("save", {
           config: this.formConfig,
-          list: this.formList
+          list: this.formList,
         });
       }
-    }
+    },
   },
   mounted() {
-    document.onkeydown = e => {
+    document.onkeydown = (e) => {
       switch (e.key) {
         case "Delete":
           this.curSelectItem &&
@@ -81,7 +87,7 @@ export default {
     } catch (e) {
       throw new Error("YUI 用到了vuex,请在项目中注册vuex");
     }
-  }
+  },
 };
 </script>
 

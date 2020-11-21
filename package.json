@@ -6,7 +6,7 @@
     "url": "http://hjkl.ink/"
   },
   "description": "以更骚的姿势开发VUE",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",

@@ -10,10 +10,10 @@ export default {
   defaultConfig: {
     index: 2,
     icon: "icon-shuzishurukuang",
-    noField: true, // 没有字段
     options: {
       type,
       value: "",
+      noField: true, // 没有字段
       label: "插槽块",
       labelOptions: {
         enable: true,
@@ -45,6 +45,7 @@ export default {
   mounted() {},
   render(h) {
     const { value, options, getSlot, changeValue, isPreview } = this;
+    console.log(isPreview, 123123);
     const { slotName } = options;
     const slot = getSlot()[slotName];
     return (

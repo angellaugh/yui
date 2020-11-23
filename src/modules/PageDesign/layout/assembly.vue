@@ -104,7 +104,7 @@ export default {
     },
     copyItemToFormListJson(item) {
       let data;
-      if (item.group !== "container") {
+      if (!item.options.noField) {
         data = {
           ...JSON.parse(JSON.stringify(item.options)),
           uuid: uuid(),
@@ -120,7 +120,7 @@ export default {
     },
 
     formMoveClone(item) {
-      if (item.group !== "container") {
+      if (!item.options.noField) {
         return {
           ...JSON.parse(JSON.stringify(item.options)),
           uuid: uuid(),

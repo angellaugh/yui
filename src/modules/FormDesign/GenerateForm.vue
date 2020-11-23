@@ -144,14 +144,12 @@ export default {
             temp = { ...temp, ...this.getNameList(ite.children) };
           });
         }
-
         element.fieldName && (temp[element.fieldName] = element.value);
       });
       return temp;
     },
     initFormJson(init) {
       this.formData = this.getNameList(this.formJson.list);
-      console.log(this.formData);
       !init && this.$refs["ruleForm"].clearValidate();
     },
     getData() {

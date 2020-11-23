@@ -178,9 +178,6 @@ export default {
         this.dialogGetJson = true;
         this.getJson = _;
       });
-    },
-    updateData() {
-      console.log(123);
     }
   }
 };

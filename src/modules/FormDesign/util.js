@@ -81,12 +81,11 @@ function getUUIDList(json) {
         };
       });
     } else {
-      temp[element.uuid] = element.fieldName;
+      element.fieldName && (temp[element.uuid] = element.fieldName);
     }
   });
   return temp;
 }
-
 export default {
   uploadHistory,
   deleteItem,

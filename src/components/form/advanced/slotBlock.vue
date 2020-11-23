@@ -45,7 +45,6 @@ export default {
   mounted() {},
   render(h) {
     const { value, options, getSlot, changeValue, isPreview } = this;
-    console.log(isPreview, 123123);
     const { slotName } = options;
     const slot = getSlot()[slotName];
     return (

@@ -11,7 +11,7 @@
     :status-icon="json.config['status-icon']"
     :show-message="json.config['show-message']"
     :inline-message="json.config['inline-message']"
-    ref="ruleForm"
+    ref="generateForm"
   >
     <template v-for="config in json.list">
       <template v-if="componentNameList.includes(config.type)">
@@ -71,7 +71,7 @@ export default {
             temp = { ...temp, ...this.getNameList(ite.children) };
           });
         } else {
-          temp[element.fieldName] = element.value;
+          element.fieldName && (temp[element.fieldName] = element.value);
         }
       });
       return temp;

@@ -23,7 +23,10 @@
       >
       <el-button
         type="info"
-        style="background: rgba(40, 173, 204, 0.9);border-color: rgba(40, 173, 204, 0.9)"
+        style="
+          background: rgba(40, 173, 204, 0.9);
+          border-color: rgba(40, 173, 204, 0.9);
+        "
         @click="handlePreviewForm"
         size="mini"
         >预览</el-button
@@ -111,8 +114,13 @@
       >
       </GenerateForm>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="handleClickResetForm">重置表单</el-button>
-        <el-button type="primary" @click="handleClickPush"
+        <el-button type="primary" @click="getPreviewSlots" size="mini"
+          >获取所有插槽</el-button
+        >
+        <el-button size="mini" @click="handleClickResetForm"
+          >重置表单</el-button
+        >
+        <el-button size="mini" type="primary" @click="handleClickPush"
           >获取填写数据</el-button
         >
       </span>
@@ -159,6 +167,9 @@ export default {
   },
   methods: {
     ...mapActions(["clearData", "backAction", "redoAction"]),
+    getPreviewSlots() {
+      console.log("插槽数组：", this.$refs["generateForm"].getSlotList());
+    },
     generateHtml() {},
     handlePreviewForm() {
       if (

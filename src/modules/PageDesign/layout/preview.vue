@@ -170,9 +170,6 @@ export default {
         this.getJson = _;
       });
     },
-    updateData() {
-      console.log(123);
-    }
   }
 };
 </script>

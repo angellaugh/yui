@@ -78,7 +78,6 @@ export default {
     },
     initJson(init) {
       this.formData = this.getNameList(this.json.list);
-      console.log(this.formData);
       !init && this.$refs["ruleForm"].clearValidate();
     },
     getData() {

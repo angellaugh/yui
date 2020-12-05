@@ -11,7 +11,6 @@ import assembly from "./layout/assembly";
 import preview from "./layout/preview";
 import modify from "./layout/modify";
 
-import monaco from "./components/monaco";
 // vuex
 import store from "./store";
 import { createNamespacedHelpers } from "vuex";
@@ -43,9 +42,6 @@ export default {
     ...mapActions(["handleDeleteItem", "clearData"])
   },
   methods: {
-    onChange(value) {
-      console.log(value);
-    },
     save() {
       if (
         this.errFormListByNull.length > 0 ||

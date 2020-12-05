@@ -81,7 +81,6 @@ function getUUIDList(json) {
         };
       });
     } else {
-      console.log(element, "element");
       element.fieldName && (temp[element.uuid] = element.fieldName);
     }
   });

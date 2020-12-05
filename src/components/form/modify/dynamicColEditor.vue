@@ -126,7 +126,6 @@ export default {
   },
   watch: {
     "curSelectItem.useResponsive": function(_) {
-      console.log(this.value);
       let list = [];
       if (_) {
         if (this.value.length > 0) {

@@ -80,7 +80,7 @@ export default {
   },
   provide() {
     return {
-      getSlot: this.getSlot,
+      getSlot: this._getSlot,
       formConfig: this.formJson.config
     };
   },
@@ -133,8 +133,22 @@ export default {
   },
 
   methods: {
-    getSlot() {
+    _getSlot() {
       return this.$scopedSlots;
+    },
+    getSlotList(json = this.formJson.list) {
+      let temp = [];
+      json.forEach(item => {
+        if (item.slotName) {
+          temp = [...temp, item.slotName];
+        }
+        if (item.container) {
+          item.container.forEach(ite => {
+            temp = [...temp, ...this.getSlotList(ite.children)];
+          });
+        }
+      });
+      return temp;
     },
     getNameList(json) {
       let temp = {};

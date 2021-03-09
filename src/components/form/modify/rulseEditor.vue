@@ -12,6 +12,9 @@ export default {
     },
     preinstallx() {
       return this.value.find(_ => _.type === "preinstall");
+    },
+    regexpx() {
+      return this.value.find(_ => _.type === "regexp");
     }
   },
   data() {
@@ -51,6 +54,8 @@ export default {
         } else {
           if (type === "preinstall") {
             this.value.push({ type: type, msg: "", rule: "number" });
+          } else if (type === "") {
+            // to do some
           } else {
             this.value.push({ type: type, msg: "" });
           }
@@ -82,7 +87,8 @@ export default {
       requiredx,
       preinstallx,
       changeChecked,
-      inputValue
+      inputValue,
+      regexpx
     } = this;
     return (
       <el-form-item class="rulseEditor" size="mini" label={options.label}>
@@ -135,6 +141,35 @@ export default {
                 on-input={value => inputValue(value, "preinstall")}
                 placeholder="请输入提示内容"
               ></el-input>
+            )}
+          </div>
+        )}
+
+        {options.config.includes("haveRegExp") && (
+          <div class="rulse-box">
+            <el-checkbox
+              value={!!regexpx}
+              on-input={value => changeChecked(value, "regexp")}
+            >
+              是否启用正则
+            </el-checkbox>
+
+            {!!regexpx && (
+              <div>
+                <el-input
+                  style="margin-left:24px;margin-top:5px;calc( 100% - 24px)"
+                  disabled={!regexpx}
+                  value={regexpx.rule}
+                  on-input={value => inputValue(value, "regexp", "rule")}
+                  placeholder="请填写正则"
+                ></el-input>
+                <el-input
+                  style="margin-left:24px;margin-top:5px;calc( 100% - 24px)"
+                  value={regexpx.msg}
+                  on-input={value => inputValue(value, "regexp")}
+                  placeholder="请输入提示内容"
+                ></el-input>
+              </div>
             )}
           </div>
         )}

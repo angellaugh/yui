@@ -71,7 +71,7 @@ export default {
     },
     rules: {
       type: "rulseEditor",
-      config: ["haveRequired", "havePreinstall"] //        haveRequired 必填, haveRegExp 正则, havePreinstall 预设
+      config: ["haveRequired", "havePreinstall", "haveRegExp"] //        haveRequired 必填, haveRegExp 正则, havePreinstall 预设
     }
   },
   render(h) {
